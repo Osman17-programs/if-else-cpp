@@ -1,0 +1,72 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// (I) Base Class: AccountHolder
+class AccountHolder {
+protected:
+    string name;  // Protected data member
+
+public:
+    void setName(string n) {  // Public setter
+        name = n;
+    }
+
+    string getName() {  // Public getter
+        return name;
+    }
+};
+
+// (II) Derived Class: BankAccount inherits from AccountHolder
+class BankAccount : public AccountHolder {
+private:
+    int accountNumber;
+    double balance;
+
+public:
+    // Constructor initializing name, accountNumber, and balance
+    BankAccount(string n, int accNo, double bal) {
+        setName(n);  // Calling base class function to set name
+        accountNumber = accNo;
+        balance = bal;
+    }
+
+    int getAccountNumber() {  // Public function to get account number
+        return accountNumber;
+    }
+
+    double getBalance() {  // Public function to get balance
+        return balance;
+    }
+};
+
+// (III) Derived Class: SavingsAccount inherits from BankAccount
+class SavingsAccount : public BankAccount {
+private:
+    double interestRate;
+
+public:
+    // Constructor initializing name, accountNumber, balance, and interestRate
+    SavingsAccount(string n, int accNo, double bal, double rate)
+        : BankAccount(n, accNo, bal) {  // Calling BankAccount constructor
+        interestRate = rate;
+    }
+
+    double getInterestRate() {  // Public function to get interest rate
+        return interestRate;
+    }
+};
+
+// Main function to demonstrate the program
+int main() {
+    // Creating a SavingsAccount object
+    SavingsAccount sa("John Doe", 123456, 5000.00, 3.5);
+
+    // Displaying details
+    cout << "Account Holder: " << sa.getName() << endl;
+    cout << "Account Number: " << sa.getAccountNumber() << endl;
+    cout << "Balance: $" << sa.getBalance() << endl;
+    cout << "Interest Rate: " << sa.getInterestRate() << "%" << endl;
+
+    return 0;
+}
