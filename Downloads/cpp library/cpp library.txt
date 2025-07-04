@@ -1,0 +1,72 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// (i) Base class: Person
+class Person {
+protected:
+    string name;  // Protected data member
+
+public:
+    void setName(string n) {  // Setter for name
+        name = n;
+    }
+
+    string getName() {  // Getter for name
+        return name;
+    }
+};
+
+// (ii) Derived class: LibraryMember inherits from Person
+class LibraryMember : public Person {
+private:
+    int memberID;
+    int booksBorrowed;
+
+public:
+    // Constructor
+    LibraryMember(string n, int id, int books) {
+        setName(n);  // Use base class method to set name
+        memberID = id;
+        booksBorrowed = books;
+    }
+
+    int getMemberID() {  // Getter for memberID
+        return memberID;
+    }
+
+    int getBooksBorrowed() {  // Getter for booksBorrowed
+        return booksBorrowed;
+    }
+};
+
+// (iii) Derived class: PremiumMember inherits from LibraryMember
+class PremiumMember : public LibraryMember {
+private:
+    double membershipFee;
+
+public:
+    // Constructor
+    PremiumMember(string n, int id, int books, double fee)
+        : LibraryMember(n, id, books) {  // Call LibraryMember constructor
+        membershipFee = fee;
+    }
+
+    double getMembershipFee() {  // Getter for membership fee
+        return membershipFee;
+    }
+};
+
+// Main function for demonstration
+int main() {
+    // Create a PremiumMember object
+    PremiumMember pm("Alice Smith", 2025, 4, 1500.0);
+
+    // Display information
+    cout << "Name: " << pm.getName() << endl;
+    cout << "Member ID: " << pm.getMemberID() << endl;
+    cout << "Books Borrowed: " << pm.getBooksBorrowed() << endl;
+    cout << "Membership Fee: $" << pm.getMembershipFee() << endl;
+
+    return 0;
+}
